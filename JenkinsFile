@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build Frontend') {
+            steps {
+                script {
+                    dir('secure-devops-frontend') {
+                        sh 'npm install'
+                        sh 'ng build --prod'
+                    }
+                }
+            }
+        }
+        stage('Deploy Frontend') {
+            steps {
+                script {
+                    dir('secure-devops-frontend/dist') {
+                        sh 'scp -r * user@server:/path/to/deploy'
+                    }
+                }
+            }
+        }
+        stage('Build Backend') {
+            steps {
+                script {
+                    dir('secure-devops-backend') {
+                        sh 'npm install'
+                    }
+                }
+            }
+        }
+        stage('Deploy Backend') {
+            steps {
+                script {
+                    sh 'scp -r secure-devops-backend/* user@server:/path/to/deploy'
+                }
+            }
+        }
+    }
+}
