@@ -1,21 +1,22 @@
 const express = require('express');
-const connectDB = require('./config/db');
 const cors = require('cors');
-require('dotenv').config();
-
 const app = express();
+const port = 3000;
 
-// Connect Database
-connectDB();
-
-// Init Middleware
-app.use(cors());
+// Middleware
 app.use(express.json());
+app.use(cors());
 
-// Define Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/user', require('./routes/userRoutes'));
+// Import routes
+const complianceRouter = require('./routes/compliance');
+const incidentsRouter = require('./routes/Incidents');
+const vulnerabilitiesRouter = require('./routes/vulnerabilities');
 
-const PORT = process.env.PORT || 5000;
+// Use routes
+app.use('/api/compliance', complianceRouter);
+app.use('/api/incidents', incidentsRouter);
+app.use('/api/vulnerabilities', vulnerabilitiesRouter);
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
