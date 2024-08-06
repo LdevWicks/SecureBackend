@@ -69,7 +69,7 @@ router.delete('/:id', (req, res) => {
         const itemId = req.params.id;
 
         // Find the index of the item to be deleted
-        const index = incidentData.findIndex(item => item.id === itemId);
+        const index = vulnerabilityData.findIndex(item => item.id === itemId);
 
         if (index === -1) {
             return res.status(404).json({ message: 'Item not found' });
