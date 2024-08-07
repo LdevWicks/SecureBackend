@@ -20,8 +20,6 @@ mongoose.connect('mongodb://localhost:27017/secure-devops', {
 
 
 
-app.use(cors(corsOptions)); 
-
 // Import routes
 const complianceRouter = require('./routes/compliance');
 const incidentsRouter = require('./routes/Incidents');

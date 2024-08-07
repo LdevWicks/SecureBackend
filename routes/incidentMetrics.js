@@ -16,6 +16,8 @@ router.get('/', async (req, res) => {
         const totalIncidents = incidents.length;
         const criticalIncidents = incidents.filter(incident => incident.severity === 'Critical').length;
         const highSeverityIncidents = incidents.filter(incident => incident.severity === 'High').length;
+        const mediumSeverityIncidents = incidents.filter(incident => incident.severity === 'Medium').length;
+        const lowSeverityIncidents = incidents.filter(incident => incident.severity === 'Low').length;
         const resolvedIncidents = incidents.filter(incident => incident.status === 'Resolved').length;
         const openIncidents = incidents.filter(incident => ['Investigating', 'Ongoing'].includes(incident.status)).length;
 
@@ -24,7 +26,9 @@ router.get('/', async (req, res) => {
             criticalIncidents,
             highSeverityIncidents,
             resolvedIncidents,
-            openIncidents
+            openIncidents,
+            mediumSeverityIncidents,
+            lowSeverityIncidents
         };
 
         res.json(metrics);
