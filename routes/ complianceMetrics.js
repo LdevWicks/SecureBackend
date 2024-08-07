@@ -20,6 +20,8 @@ router.get('/', async (req, res) => {
         // Calculate metrics
         const totalItems = complianceData.length;
         const completedItems = complianceData.filter(item => item.status === 'Completed').length;
+        const inProgressItems = complianceData.filter(item => item.status === 'In Progress').length;
+        const pendingItems = complianceData.filter(item => item.status === 'Pending').length;
         const nonCompliantItems = totalItems - completedItems; // Items that are not 'Completed'
 
         // Calculate compliance rate as a percentage
@@ -27,7 +29,10 @@ router.get('/', async (req, res) => {
 
         const metrics = {
             complianceRate: parseFloat(complianceRate), // Convert to float for precision
-            nonCompliantItems
+            nonCompliantItems,
+            inProgressItems,
+            pendingItems,
+            completedItems
         };
 
         res.json(metrics);
