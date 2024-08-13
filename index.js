@@ -37,6 +37,6 @@ app.use('/api/compliance/metrics', complianceMetricsRouter);
 app.use('/api/vulnerabilities/metrics', vulnerabilitiesMetricsRouter);
 
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`Server is running on port ${port}`);
 });
