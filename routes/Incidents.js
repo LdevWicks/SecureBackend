@@ -1,21 +1,20 @@
-
 const express = require('express');
 const router = express.Router();
 
-let incidentData = [ // In-memory storage for compliance data
+let incidentData = [ // In-memory storage for incident data
     { id: 'INC-001', name: 'Data Breach', description: 'Unauthorized access to customer data', severity: 'Critical', status: 'Investigating', date: '2024-08-01' },
     { id: 'INC-002', name: 'Phishing Attack', description: 'Employee email compromised', severity: 'High', status: 'Resolved', date: '2024-07-15' },
     { id: 'INC-003', name: 'Ransomware', description: 'Malware encrypted company files', severity: 'Critical', status: 'Ongoing', date: '2024-07-28' },
     { id: 'INC-004', name: 'DDoS Attack', description: 'Service disruption due to traffic overload', severity: 'Medium', status: 'Mitigated', date: '2024-06-30' }
 ];
 
-// GET endpoint: Fetch all compliance items
+// GET endpoint: Fetch all incident items
 router.get('/', (req, res) => {
     console.log('Fetched incident data:', incidentData);
     res.json(incidentData); 
 });
 
-// POST endpoint: Add new compliance items
+// POST endpoint: Add new incident items
 router.post('/', (req, res) => {
     try {
         const requestData = req.body;
@@ -37,7 +36,7 @@ router.post('/', (req, res) => {
     }
 });
 
-// PUT endpoint: Update an existing compliance item by ID
+// PUT endpoint: Update an existing incident item by ID
 router.put('/:id', (req, res) => {
     try {
         const itemId = req.params.id;
@@ -63,7 +62,7 @@ router.put('/:id', (req, res) => {
     }
 });
 
-// DELETE endpoint: Remove a compliance item by ID
+// DELETE endpoint: Remove an incident item by ID
 router.delete('/:id', (req, res) => {
     try {
         const itemId = req.params.id;
