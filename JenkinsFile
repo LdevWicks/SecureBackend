@@ -1,39 +1,22 @@
 pipeline {
     agent any
     stages {
-        stage('Build Frontend') {
+        stage('Install') {
             steps {
-                script {
-                    dir('secure-devops-frontend') {
-                        sh 'npm install'
-                        sh 'ng build --prod'
-                    }
-                }
+                sh 'npm ci'
             }
         }
-        stage('Deploy Frontend') {
+        stage('Test') {
             steps {
-                script {
-                    dir('secure-devops-frontend/dist') {
-                        sh 'scp -r * user@server:/path/to/deploy'
-                    }
-                }
+                sh 'npm test'
             }
         }
-        stage('Build Backend') {
-            steps {
-                script {
-                    dir('secure-devops-backend') {
-                        sh 'npm install'
-                    }
-                }
+        stage('Deploy') {
+            when {
+                branch 'main'
             }
-        }
-        stage('Deploy Backend') {
             steps {
-                script {
-                    sh 'scp -r secure-devops-backend/* user@server:/path/to/deploy'
-                }
+                sh 'scp -r ./* user@server:/path/to/deploy'
             }
         }
     }
