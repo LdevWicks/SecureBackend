@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios'); // Add axios for making HTTP requests
-
-// Define the base URL for the incidents API
-const incidentsApiUrl = 'http://localhost:3000/api/incidents/'; // Adjust if your base URL is different
+const Incident = require('../models/Incidents');
 
 // GET endpoint: Fetch incident metrics
 router.get('/', async (req, res) => {
     try {
-        // Fetch incident data from the /api/incidents endpoint
-        const response = await axios.get(incidentsApiUrl);
-        const incidents = response.data;
+        const incidents = await Incident.find();
 
         // Calculate metrics based on the fetched data
         const totalIncidents = incidents.length;

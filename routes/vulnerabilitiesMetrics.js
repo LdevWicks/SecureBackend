@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios'); // Add axios for making HTTP requests
-
-// Define the base URL for the vulnerabilities API
-const vulnerabilitiesApiUrl = 'http://localhost:3000/api/vulnerabilities/'; // Adjust if your base URL is different
+const Vulnerability = require('../models/Vulnerability');
 
 // GET endpoint: Fetch vulnerability metrics
 router.get('/', async (req, res) => {
     try {
-        // Fetch vulnerability data from the /api/vulnerabilities endpoint
-        const response = await axios.get(vulnerabilitiesApiUrl);
-        const vulnerabilities = response.data;
+        const vulnerabilities = await Vulnerability.find();
 
         // Calculate metrics based on the fetched data
         const totalVulnerabilities = vulnerabilities.length;
