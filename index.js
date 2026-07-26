@@ -17,23 +17,11 @@ app.use(cors({
 
 
 // MongoDB connection
-let lastMongoError = null;
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/secure-devops')
 .then(() => {
     console.log('MongoDB connected');
 }).catch(err => {
-    lastMongoError = err.message;
     console.error('MongoDB connection error:', err);
-});
-
-// Temporary diagnostic route -- remove once Atlas connection is confirmed working
-app.get('/api/debug/db-status', (req, res) => {
-    const rawUri = process.env.MONGO_URI || '(not set, using localhost fallback)';
-    res.json({
-        readyState: mongoose.connection.readyState, // 0=disconnected 1=connected 2=connecting 3=disconnecting
-        lastError: lastMongoError,
-        uriHost: rawUri.replace(/\/\/.*@/, '//<redacted>@'),
-    });
 });
 
 
